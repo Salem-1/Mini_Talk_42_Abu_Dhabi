@@ -64,7 +64,7 @@ int decimal_to_binary(int a, int flag, int pid)
 					return (1);
 				}	
 			}
-			//	usleep(150);
+			usleep(150);
 		a /= 2;
 		i++;
 	}
@@ -79,7 +79,7 @@ void send_zero (int a, int pid)
 	{
 		kill(pid, SIGUSR1);
 		ft_printf("sending 0\n");
-		//usleep(150);
+		usleep(150);
 		a--;
 	}	
 }
