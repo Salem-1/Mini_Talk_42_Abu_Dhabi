@@ -26,7 +26,7 @@ void encoder (char *argv,int pid)
 {
 	int	i;
 
-	//ft_printf("inside encoder argv[2] = %s\n", &argv[2]);
+	ft_printf("inside encoder argv[2] = %s\n", &argv[2]);
 	i = -1;
 	while (argv[++i])
 	//while ( ++i < 10)
@@ -36,8 +36,8 @@ void encoder (char *argv,int pid)
 		send_zero(7 - decimal_to_binary(argv[i], 0, pid), pid);
 		// decimal_to_binary(i, 1, pid);
 		// send_zero(7 - decimal_to_binary(i, 0, pid), pid);
-		//ft_printf("   <%c>", argv[i]);
-		//ft_printf("\n");
+		ft_printf("   <%c>", argv[i]);
+		ft_printf("\n");
 	}
 	send_zero(8, pid);
 }
@@ -59,13 +59,13 @@ int decimal_to_binary(int a, int flag, int pid)
 				if (bin == 0)
 				{
 					kill(pid, SIGUSR1);
-					//ft_printf("0 ");
+					ft_printf("0 ");
 
 				}
 				else if (bin == 1)
 				{
 					kill(pid, SIGUSR2);
-				//	ft_printf("1 ");
+					ft_printf("1 ");
 				}
 				else
 				{
@@ -73,7 +73,7 @@ int decimal_to_binary(int a, int flag, int pid)
 					return (1);
 				}	
 			}
-			usleep(100);
+			usleep(200);
 		a /= 2;
 		i++;
 	}
@@ -88,11 +88,11 @@ void send_zero (int a, int pid)
 	while (a > 0)
 	{
 		kill(pid, SIGUSR1);
-	//	ft_printf("0 ");
-		usleep(100);
+		ft_printf("0 ");
+		usleep(200);
 		a--;
 	}	
-	//ft_printf("|");
+	ft_printf("|");
 }
 int	is_pow_two(int a)
 {

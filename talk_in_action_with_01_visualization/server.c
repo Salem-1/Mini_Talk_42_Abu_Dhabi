@@ -20,7 +20,7 @@ int main()
 		type_me++;
 		if (type_me % 8 == 0)
 		{
-			ft_printf("%c", bit_counter);
+			ft_printf(" <%c>\n", bit_counter);
 			bit_counter = 0;
 			type_me = 0;
 		}
@@ -33,15 +33,15 @@ void got_zero_or_one(int sig)
 	if (sig == SIGUSR1)
 	{
 		binary = 0;
-		//ft_printf("%d ", binary);
+		ft_printf("%d ", binary);
 	}
 	else if (sig == SIGUSR2)
 	{
 		binary = 1;
-	//	ft_printf("%d ", binary);
+		ft_printf("%d ", binary);
 	}
-	//else
-		//ft_printf("Got wiered wrong message, I don't know what to do with it buddy\n");
+	else
+		ft_printf("Got wiered wrong message, I don't know what to do with it buddy\n");
 	
 }
 
