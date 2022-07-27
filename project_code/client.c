@@ -8,6 +8,9 @@ Time for testing the workflow for minitalk, after this inshalla can submit
 
 int main(int argc, char **argv)
 {
+	//stress testing the encoder;
+
+	
 	int pid;
 
 	if (argc < 3)
@@ -17,10 +20,8 @@ int main(int argc, char **argv)
 	}
 	pid = atoi(argv[1]);
 	encoder (argv[2], pid);
-	
 }
 
-/*Sending each char as 01 then null terminate it by sending 7 consective zeros*/
 void encoder (char *argv,int pid)
 {
 	int	i;
@@ -28,11 +29,17 @@ void encoder (char *argv,int pid)
 	ft_printf("inside encoder argv[2] = %s\n", &argv[2]);
 	i = -1;
 	while (argv[++i])
-	{		
-		send_zero(7 - decimal_to_binary(argv[i], 0, pid), pid);
+	//while ( ++i < 10)
+	{
+		//ft_printf("%d      ", i);
 		decimal_to_binary(argv[i], 1, pid);
+		send_zero(7 - decimal_to_binary(argv[i], 0, pid), pid);
+		// decimal_to_binary(i, 1, pid);
+		// send_zero(7 - decimal_to_binary(i, 0, pid), pid);
+		ft_printf("   <%c>", argv[i]);
+		ft_printf("\n");
 	}
-	send_zero(7, pid);
+	send_zero(8, pid);
 }
 
 int decimal_to_binary(int a, int flag, int pid)
@@ -43,6 +50,7 @@ int decimal_to_binary(int a, int flag, int pid)
 
 	i = -1;
 	//ft_printf("inside decimal to binary\n");
+	//Search how to convert decimal to bin again
 	while (a > 0)
 	{
 		bin = a % 2;
@@ -51,12 +59,13 @@ int decimal_to_binary(int a, int flag, int pid)
 				if (bin == 0)
 				{
 					kill(pid, SIGUSR1);
-					ft_printf("sending 0\n");
+					ft_printf("0 ");
+
 				}
 				else if (bin == 1)
 				{
 					kill(pid, SIGUSR2);
-					ft_printf("sending 1\n");
+					ft_printf("1 ");
 				}
 				else
 				{
@@ -64,22 +73,36 @@ int decimal_to_binary(int a, int flag, int pid)
 					return (1);
 				}	
 			}
-			usleep(150);
+			usleep(200);
 		a /= 2;
 		i++;
 	}
-	ft_printf("inside decimal_to_binary, sending zero %d\n", 7 - i);
+	//ft_printf("\n");
+	//ft_printf("\ninside decimal_to_binary, sending zero %d\n", 8 - i);
 	return (i);
 }
 
 void send_zero (int a, int pid)
 {
-	ft_printf("inside send zero, sending 0 %d times\n", a);
+	//ft_printf("inside send zero, sending 0 %d times\n", a);
 	while (a > 0)
 	{
 		kill(pid, SIGUSR1);
-		ft_printf("sending 0\n");
-		usleep(150);
+		ft_printf("0 ");
+		usleep(200);
 		a--;
 	}	
+	ft_printf("|");
+}
+int	is_pow_two(int a)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 8)
+	{
+		if (a == power(2, i))
+			return (1);
+	}
+	return (0);
 }

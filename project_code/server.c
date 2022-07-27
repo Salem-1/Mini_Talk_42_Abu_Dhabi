@@ -1,8 +1,9 @@
 #include "minitalk.h"
-#include <time.h>
+
 
 int binary;
 
+/*The binary message are sent in reverse order*/
 
 int main()
 {
@@ -14,12 +15,12 @@ int main()
 	type_me = 0;
 	while (1)
 	{	
-		pause();
-		bit_counter = decoder(bit_counter, 7 - type_me);
+		//pause();
+		bit_counter = decoder(bit_counter, type_me);
 		type_me++;
-		if (type_me % 7 == 0)
+		if (type_me % 8 == 0)
 		{
-			ft_printf("char recieved <%c>", bit_counter);
+			ft_printf(" <%c>\n", bit_counter);
 			bit_counter = 0;
 			type_me = 0;
 		}
@@ -27,48 +28,34 @@ int main()
 	}
 }
 
-
-void got_zero(int sig)
+void got_zero_or_one(int sig)
 {
-	binary = 0;
-	ft_printf("recieving %d\n", binary);
-	
+	if (sig == SIGUSR1)
+	{
+		binary = 0;
+		ft_printf("%d ", binary);
+	}
+	else if (sig == SIGUSR2)
+	{
+		binary = 1;
+		ft_printf("%d ", binary);
+	}
+	else
+		ft_printf("Got wiered wrong message, I don't know what to do with it buddy\n");
 	
 }
 
-void got_one(int sig)
-{
-	binary = 1;
-	ft_printf("receiveing %d\n", binary);
-}
+
 
 int decoder(int bit_counter, int n)
 {
 		
-	struct	sigaction sa1;
-	struct	sigaction sa2;
-	int		sig;
-	
-	sa1.sa_handler = &got_zero;
-	sa2.sa_handler = &got_one;
-	sigaction(SIGUSR1, &sa1, NULL);	
-	sigaction(SIGUSR2, &sa2, NULL);
-	ft_printf("bit_counter +=  power(2, %d) * %d;\n", n, binary);
+	struct	sigaction sa;
+	sa.sa_handler = &got_zero_or_one;
+	sigaction(SIGUSR1, &sa, NULL);	
+	sigaction(SIGUSR2, &sa, NULL);
+	pause();
 	bit_counter +=  power(2, n) * binary;
+	//ft_printf("bit_counter +=  power(2, %d) * %d = %d;\n", n, binary, bit_counter);
 	return (bit_counter);
-}
-
-int power(int base, int power)
-{
-	int	i;
-	int result;
-
-	result = base;
-	i = -1;
-	while (++i < power - 1)
-		result *= base;
-	if (power == 0)
-		result = 1;
-	ft_printf("testing power function: %d ** %d = %d\n", base, power, result);
-	return (result);
 }

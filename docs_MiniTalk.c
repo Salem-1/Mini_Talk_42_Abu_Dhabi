@@ -28,8 +28,9 @@ Bonus:
 
 Allowed functions:
 -----------------
-write
-◦ ft_printf and any equivalent YOU coded ◦ signal
+*write -> is async safe, can be used safely in asyn operations
+◦ ft_printf and any equivalent YOU coded 
+◦ signal -> Define new Behaviour of the recieved signal or triggered signal , signal(SIGUSR1, handler); void handler(void *I_will_do_whatever_I_like); 
 ◦ sigemptyset
 ◦ sigaddset
 ◦ sigaction

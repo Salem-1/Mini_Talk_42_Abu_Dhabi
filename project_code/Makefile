@@ -5,9 +5,9 @@ libft/ft_calloc.c libft/ft_isprint.c libft/ft_memmove.c libft/ft_putstr_fd.c lib
 libft/ft_isalnum.c libft/ft_itoa.c libft/ft_memset.c libft/ft_split.c libft/ft_strlcat.c libft/ft_strnstr.c libft/ft_toupper.c \
 libft/ft_isalpha.c libft/ft_memchr.c libft/ft_putchar_fd.c libft/ft_strchr.c libft/ft_strlcpy.c libft/ft_strrchr.c \
 printf/ft_printf.c printf/param_checker.c  printf/polymorophic_itoa.c printf/unsigned.c printf/signed.c printf/itoh.c \
-libft/ft_putstr.c  printf/itop.c
+libft/ft_putstr.c  printf/itop.c server_utils.c 
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =  -Wall -Wextra -Werror
 CC = gcc
 OBJ	=	$(SRC:.c=.o)
 $(NAME):	$(OBJ)
@@ -18,7 +18,7 @@ clean:
 fclean: clean 
 	@rm -f $(NAME) 
 re: fclean all
-	gcc minitalk.a client.c -o client
-	gcc minitalk.a server.c -o server
+	gcc   minitalk.a client.c -o client
+	gcc   minitalk.a server.c -o server
 	./server
 	
