@@ -1,21 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/27 07:57:39 by ahsalem           #+#    #+#             */
+/*   Updated: 2022/07/27 08:04:50 by ahsalem          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
 
-
-int binary;
+int	g_binary;
 
 /*The binary message are sent in reverse order*/
 
-int main()
+int	main(void)
 {
-	int		bit_counter;
-	int		type_me;
-	
+	int	bit_counter;
+	int	type_me;
+
 	ft_printf("%d\n", getpid());
 	bit_counter = 0;
 	type_me = 0;
 	while (1)
 	{	
-		//pause();
 		bit_counter = decoder(bit_counter, type_me);
 		type_me++;
 		if (type_me % 8 == 0)
@@ -24,38 +34,27 @@ int main()
 			bit_counter = 0;
 			type_me = 0;
 		}
-		
 	}
 }
 
-void got_zero_or_one(int sig)
+void	got_zero_or_one(int sig)
 {
 	if (sig == SIGUSR1)
-	{
-		binary = 0;
-		//ft_printf("%d ", binary);
-	}
+		g_binary = 0;
 	else if (sig == SIGUSR2)
-	{
-		binary = 1;
-	//	ft_printf("%d ", binary);
-	}
-	//else
-		//ft_printf("Got wiered wrong message, I don't know what to do with it buddy\n");
-	
+		g_binary = 1;
+	else
+		ft_printf("Wrong signal , sig_id = %d\n", sig);
 }
 
-
-
-int decoder(int bit_counter, int n)
+int	decoder(int bit_counter, int n)
 {
-		
-	struct	sigaction sa;
+	struct sigaction	sa;
+
 	sa.sa_handler = &got_zero_or_one;
-	sigaction(SIGUSR1, &sa, NULL);	
+	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	pause();
-	bit_counter +=  power(2, n) * binary;
-	//ft_printf("bit_counter +=  power(2, %d) * %d = %d;\n", n, binary, bit_counter);
+	bit_counter += power(2, n) * g_binary;
 	return (bit_counter);
 }

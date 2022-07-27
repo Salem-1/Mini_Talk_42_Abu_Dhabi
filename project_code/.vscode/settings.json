@@ -1,6 +1,9 @@
 {
 	"makefile.extensionOutputFolder": "./.vscode",
 	"files.associations": {
-		"minitalk.h": "c"
+		"minitalk.h": "c",
+		"algorithm": "c",
+		"functional": "c",
+		"ios": "c"
 	}
 }

@@ -1,5 +1,16 @@
-#include "minitalk.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahsalem <ahsalem@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/27 07:57:52 by ahsalem           #+#    #+#             */
+/*   Updated: 2022/07/27 07:59:59 by ahsalem          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "minitalk.h"
 
 int power(int base, int power)
 {
@@ -12,6 +23,5 @@ int power(int base, int power)
 		result *= base;
 	if (power == 0)
 		result = 1;
-	//ft_printf("testing power function: %d ** %d = %d\n", base, power, result);
 	return (result);
 }

@@ -15,6 +15,9 @@ $(NAME):	$(OBJ)
 all: $(NAME)
 clean:
 	rm -f *.o
+	rm -f libft/*.o
+	rm -f printf/*.o
+
 fclean: clean 
 	@rm -f $(NAME) 
 re: fclean all
